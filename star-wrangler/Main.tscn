@@ -1,3 +1,25 @@
 [gd_scene format=3 uid="uid://8eslwsfm0hia"]
 
-[node name="Node2D" type="Node2D" unique_id=82187009]
+[ext_resource type="Shader" uid="uid://bpyoewemalvh5" path="res://Starfield.gdshader" id="1_glv2v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uu6xs"]
+shader = ExtResource("1_glv2v")
+shader_parameter/star_height = 5.0
+shader_parameter/star_blend = 0.00999999977648
+shader_parameter/depth_blend = 0.15999999642368
+shader_parameter/flare_ratio = 0.23999999463552
+shader_parameter/star_size = 5.0
+shader_parameter/twinkle_speed = 10.0
+shader_parameter/star_layers = 4
+
+[sub_resource type="Sky" id="Sky_r0du0"]
+sky_material = SubResource("ShaderMaterial_uu6xs")
+
+[sub_resource type="Environment" id="Environment_rxg2q"]
+background_mode = 2
+sky = SubResource("Sky_r0du0")
+
+[node name="Node3D" type="Node3D" unique_id=1971617883]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1485121600]
+environment = SubResource("Environment_rxg2q")
