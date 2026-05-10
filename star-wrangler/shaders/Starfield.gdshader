@@ -11,6 +11,47 @@ uniform float star_size = 5;
 uniform float twinkle_speed = 5.0;
 uniform int star_layers = 3;
 
+// Sourced from Tenner Helland
+// https://tannerhelland.com/2012/09/18/convert-temperature-rgb-algorithm-code.html
+vec3 TemperatureToRGB(float temp) {
+	temp /= 100.0;
+	
+	vec3 output = vec3(0,0,0);
+	
+	// RED
+	if (temp <= 66.0) {
+		output.r = 1.0;
+	} else {
+		output.r = temp - 60.0;
+		output.r = 329.698727446 * pow(output.r,-0.1332047592);
+		output.r = output.r / 255.0; // cast from bit to float
+		output.r = clamp(output.r, 0.0, 1.0);
+	}
+	
+	// GREEN
+	if (temp <= 66.0) {
+		output.g = temp;
+		output.g = 99.4708025861 * log(output.g) - 161.1195681661;
+	} else {
+		output.g = temp - 60.0;
+		output.g = 288.1221695283 * pow(output.g, -0.0755148492);
+	}
+	output.g = output.g / 255.0; // cast from bit to float
+	output.g = clamp(output.g, 0.0, 1.0);
+	
+	// BLUE
+	if (temp >= 66.0) {
+		output.b = 1.0;
+	} else {
+		output.b = temp - 10.0;
+		output.b = 138.5177312231 * log(output.b) - 305.0447927307;
+		output.b = output.b / 255.0; // cast from bit to float
+		output.b = clamp(output.b, 0.0, 1.0);
+	}
+	
+	return output;
+}
+
 vec2 RandomVec2(vec2 seed){
 	seed = fract(seed * vec2(123.35, 78.29));
 	seed += dot(seed, seed + 875.34);
@@ -37,8 +78,8 @@ vec3 StarLayer(vec2 uv){
 			float size = star_size * (rv.x + 0.5);
 			float animated_size = (sin(TIME * rv.x * twinkle_speed) * 0.4 + 0.6) * size;
 			float flare = smoothstep(star_size * (1.0 - flare_ratio), star_size, size);
-			vec3 star_color = hue(vec3(1,1,1), rv.y * 1.0, 1);
-			stars += Star(grid_uv - offset - rv, flare) * animated_size * star_color;
+			//vec3 star_color = hue(vec3(0,1,0), rv.y * 1.0, 1);
+			stars += Star(grid_uv - offset - rv, flare) * animated_size * TemperatureToRGB(rv.y * star_size * 2000.0 + 5000.0);
 		}
 	}
 	return stars;
