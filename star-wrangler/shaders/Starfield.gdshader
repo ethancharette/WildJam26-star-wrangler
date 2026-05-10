@@ -52,6 +52,22 @@ vec3 TemperatureToRGB(float temp) {
 	return output;
 }
 
+float StarTempDistribution(vec2 seed) {
+	if (seed.x <= 0.76) {
+		return 2300.0 + (seed.y * 1600.0); 
+	} else if (seed.x <= 0.88) {
+		return 3900.0 + (seed.y * 1400.0);
+	} else if (seed.x <= 0.956) {
+		return 5300.0 + (seed.y * 700.0);
+	} else if (seed.x <= 0.986) {
+		return 6000.0 + (seed.y * 1300.0);
+	} else if (seed.x <= 0.9931) {
+		return 10000.0 + (seed.y * 23000.0);
+	} else {
+		return 33000.0 + (seed.y * 33000.0);
+	}
+}
+
 vec2 RandomVec2(vec2 seed){
 	seed = fract(seed * vec2(123.35, 78.29));
 	seed += dot(seed, seed + 875.34);
@@ -79,7 +95,7 @@ vec3 StarLayer(vec2 uv){
 			float animated_size = (sin(TIME * rv.x * twinkle_speed) * 0.4 + 0.6) * size;
 			float flare = smoothstep(star_size * (1.0 - flare_ratio), star_size, size);
 			//vec3 star_color = hue(vec3(0,1,0), rv.y * 1.0, 1);
-			stars += Star(grid_uv - offset - rv, flare) * animated_size * TemperatureToRGB(rv.y * star_size * 2000.0 + 5000.0);
+			stars += Star(grid_uv - offset - rv, flare) * animated_size * TemperatureToRGB(StarTempDistribution(rv + 0.5));
 		}
 	}
 	return stars;
