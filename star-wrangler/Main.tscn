@@ -7,7 +7,10 @@
 [ext_resource type="Material" uid="uid://dg3ywt3eeun1r" path="res://materials/debug_blue.tres" id="5_3dxm6"]
 [ext_resource type="Shader" uid="uid://bsqushsl483m0" path="res://shaders/blackhole.gdshader" id="6_3dxm6"]
 [ext_resource type="Material" uid="uid://ch0m6sb56fymb" path="res://materials/blackhole_disk.tres" id="7_lgr22"]
-[ext_resource type="Script" uid="uid://be6w35xaokwcx" path="res://scripts/rotator.gd" id="8_trn2v"]
+[ext_resource type="Script" uid="uid://be6w35xaokwcx" path="res://Scripts/rotator.gd" id="8_trn2v"]
+[ext_resource type="Texture2D" uid="uid://d23q52k5dyekh" path="res://Godot_icon.svg" id="9_20pc6"]
+[ext_resource type="Texture2D" uid="uid://830rcaqkd4ks" path="res://icon.svg" id="9_wkp8b"]
+[ext_resource type="Script" uid="uid://c50k0eefmab0h" path="res://constellation.gd" id="10_20pc6"]
 
 [sub_resource type="Gradient" id="Gradient_fos0i"]
 offsets = PackedFloat32Array(0.5, 1)
@@ -116,6 +119,8 @@ mesh = SubResource("BoxMesh_lgr22")
 
 [node name="Player" parent="." unique_id=583585473 instance=ExtResource("2_r0du0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+max_look_below_degrees = -15.0
+zoom_speed = 35.0
 
 [node name="Black Hole" type="MeshInstance3D" parent="." unique_id=654305946]
 transform = Transform3D(0.16168036, 0.9737966, 0.15993714, -0.036618464, -0.15603776, 0.98707205, 0.98616374, -0.16544685, 0.010430646, -16.104156, 2000, 17.039398)
@@ -123,6 +128,13 @@ visible = false
 mesh = SubResource("SphereMesh_trn2v")
 
 [node name="Disk" type="MeshInstance3D" parent="Black Hole" unique_id=887094065]
+visible = false
 mesh = SubResource("SphereMesh_03owx")
 script = ExtResource("8_trn2v")
 speed = Vector3(0, 1, 0)
+
+[node name="Constellation" type="Sprite3D" parent="." unique_id=502914808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.811188, 31.131752)
+texture = ExtResource("9_wkp8b")
+script = ExtResource("10_20pc6")
+shaded_texture = ExtResource("9_20pc6")
