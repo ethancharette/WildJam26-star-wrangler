@@ -5,6 +5,39 @@
 [ext_resource type="Material" uid="uid://bseosusb6lp0o" path="res://materials/fully_black.tres" id="2_uu6xs"]
 [ext_resource type="Material" uid="uid://fkreh64224yw" path="res://materials/debug_red.tres" id="4_fos0i"]
 [ext_resource type="Material" uid="uid://dg3ywt3eeun1r" path="res://materials/debug_blue.tres" id="5_3dxm6"]
+[ext_resource type="Shader" uid="uid://bsqushsl483m0" path="res://shaders/blackhole.gdshader" id="6_3dxm6"]
+[ext_resource type="Material" uid="uid://ch0m6sb56fymb" path="res://materials/blackhole_disk.tres" id="7_lgr22"]
+[ext_resource type="Script" uid="uid://be6w35xaokwcx" path="res://scripts/rotator.gd" id="8_trn2v"]
+
+[sub_resource type="Gradient" id="Gradient_fos0i"]
+offsets = PackedFloat32Array(0.5, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3dxm6"]
+noise_type = 5
+seed = 1
+frequency = 0.05
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_lgr22"]
+width = 256
+height = 256
+depth = 256
+noise = SubResource("FastNoiseLite_3dxm6")
+color_ramp = SubResource("Gradient_fos0i")
+seamless = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_trn2v"]
+noise_type = 5
+frequency = 0.05
+domain_warp_frequency = 0.1
+metadata/_preview_in_3d_space_ = true
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_03owx"]
+width = 256
+height = 256
+depth = 256
+noise = SubResource("FastNoiseLite_trn2v")
+color_ramp = SubResource("Gradient_fos0i")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uu6xs"]
 shader = ExtResource("1_glv2v")
@@ -15,6 +48,11 @@ shader_parameter/flare_ratio = 0.23999999463552
 shader_parameter/star_size = 5.0
 shader_parameter/twinkle_speed = 10.0
 shader_parameter/star_layers = 4
+shader_parameter/gas_noise_one = SubResource("NoiseTexture3D_lgr22")
+shader_parameter/gas_color_one = Color(0.33999997, 0.5709999, 1, 1)
+shader_parameter/gas_noise_two = SubResource("NoiseTexture3D_03owx")
+shader_parameter/gas_color_two = Color(1, 0.74509805, 0, 1)
+shader_parameter/gas_strength = 0.05
 
 [sub_resource type="Sky" id="Sky_r0du0"]
 sky_material = SubResource("ShaderMaterial_uu6xs")
@@ -22,11 +60,28 @@ sky_material = SubResource("ShaderMaterial_uu6xs")
 [sub_resource type="Environment" id="Environment_rxg2q"]
 background_mode = 2
 sky = SubResource("Sky_r0du0")
+ambient_light_source = 1
+reflected_light_source = 1
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r0du0"]
 size = Vector2(1000, 1000)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lgr22"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lgr22"]
+render_priority = 0
+shader = ExtResource("6_3dxm6")
+shader_parameter/scale = 100.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_trn2v"]
+material = SubResource("ShaderMaterial_lgr22")
+radius = 100.0
+height = 100.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_03owx"]
+material = ExtResource("7_lgr22")
+radius = 200.0
+height = 10.0
 
 [node name="Node3D" type="Node3D" unique_id=1971617883]
 
@@ -61,3 +116,13 @@ mesh = SubResource("BoxMesh_lgr22")
 
 [node name="Player" parent="." unique_id=583585473 instance=ExtResource("2_r0du0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Black Hole" type="MeshInstance3D" parent="." unique_id=654305946]
+transform = Transform3D(0.16168036, 0.9737966, 0.15993714, -0.036618464, -0.15603776, 0.98707205, 0.98616374, -0.16544685, 0.010430646, -16.104156, 2000, 17.039398)
+visible = false
+mesh = SubResource("SphereMesh_trn2v")
+
+[node name="Disk" type="MeshInstance3D" parent="Black Hole" unique_id=887094065]
+mesh = SubResource("SphereMesh_03owx")
+script = ExtResource("8_trn2v")
+speed = Vector3(0, 1, 0)
