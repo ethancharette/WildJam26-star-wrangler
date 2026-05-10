@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://8eslwsfm0hia"]
 
+[ext_resource type="Script" uid="uid://cibqse0vibj7b" path="res://Scripts/game_manager.gd" id="1_5vvyt"]
 [ext_resource type="Shader" uid="uid://bpyoewemalvh5" path="res://shaders/Starfield.gdshader" id="1_glv2v"]
 [ext_resource type="PackedScene" uid="uid://cs5ogd5erogyx" path="res://prefabs/player.tscn" id="2_r0du0"]
 [ext_resource type="Material" uid="uid://bseosusb6lp0o" path="res://materials/fully_black.tres" id="2_uu6xs"]
@@ -8,9 +9,9 @@
 [ext_resource type="Shader" uid="uid://bsqushsl483m0" path="res://shaders/blackhole.gdshader" id="6_3dxm6"]
 [ext_resource type="Material" uid="uid://ch0m6sb56fymb" path="res://materials/blackhole_disk.tres" id="7_lgr22"]
 [ext_resource type="Script" uid="uid://be6w35xaokwcx" path="res://Scripts/rotator.gd" id="8_trn2v"]
-[ext_resource type="Texture2D" uid="uid://d23q52k5dyekh" path="res://Godot_icon.svg" id="9_20pc6"]
-[ext_resource type="Texture2D" uid="uid://830rcaqkd4ks" path="res://icon.svg" id="9_wkp8b"]
-[ext_resource type="Script" uid="uid://c50k0eefmab0h" path="res://constellation.gd" id="10_20pc6"]
+[ext_resource type="Texture2D" uid="uid://dm16e2521tva" path="res://sprites/constellation_fish/constellation_fish_base.png" id="10_5vvyt"]
+[ext_resource type="Script" uid="uid://c50k0eefmab0h" path="res://Scripts/constellation.gd" id="10_20pc6"]
+[ext_resource type="Texture2D" uid="uid://07now6pmgqxb" path="res://sprites/constellation_fish/constellation_fish_shaded.png" id="12_c6i3y"]
 
 [sub_resource type="Gradient" id="Gradient_fos0i"]
 offsets = PackedFloat32Array(0.5, 1)
@@ -48,13 +49,16 @@ shader_parameter/star_height = 5.0
 shader_parameter/star_blend = 0.00999999977648
 shader_parameter/depth_blend = 0.15999999642368
 shader_parameter/flare_ratio = 0.23999999463552
-shader_parameter/star_size = 5.0
+shader_parameter/star_size = 0.66
 shader_parameter/twinkle_speed = 10.0
-shader_parameter/star_layers = 4
+shader_parameter/star_layers = 5
+shader_parameter/sky_top_color = Color(0.16096002, 2.5960524e-06, 0.118847616, 1)
+shader_parameter/sky_horizon_color = Color(0, 1.2032688e-08, 0.11186411, 1)
+shader_parameter/sky_gradient_exponent = 1.0
 shader_parameter/gas_noise_one = SubResource("NoiseTexture3D_lgr22")
 shader_parameter/gas_color_one = Color(0.33999997, 0.5709999, 1, 1)
 shader_parameter/gas_noise_two = SubResource("NoiseTexture3D_03owx")
-shader_parameter/gas_color_two = Color(1, 0.74509805, 0, 1)
+shader_parameter/gas_color_two = Color(0.87128514, 0.7796366, 0.6166402, 1)
 shader_parameter/gas_strength = 0.05
 
 [sub_resource type="Sky" id="Sky_r0du0"]
@@ -65,6 +69,9 @@ background_mode = 2
 sky = SubResource("Sky_r0du0")
 ambient_light_source = 1
 reflected_light_source = 1
+fog_light_color = Color(0.083210655, 0.0046243523, 0.080033705, 1)
+volumetric_fog_albedo = Color(0.18043712, 2.2669583e-05, 0.18043548, 1)
+volumetric_fog_emission = Color(0, 0, 0.05258617, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r0du0"]
 size = Vector2(1000, 1000)
@@ -87,6 +94,10 @@ radius = 200.0
 height = 10.0
 
 [node name="Node3D" type="Node3D" unique_id=1971617883]
+
+[node name="Game Manager" type="Node" parent="." unique_id=989940495 node_paths=PackedStringArray("constellations_parent")]
+script = ExtResource("1_5vvyt")
+constellations_parent = NodePath("../Constellations")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1485121600]
 environment = SubResource("Environment_rxg2q")
@@ -133,8 +144,28 @@ mesh = SubResource("SphereMesh_03owx")
 script = ExtResource("8_trn2v")
 speed = Vector3(0, 1, 0)
 
-[node name="Constellation" type="Sprite3D" parent="." unique_id=502914808]
+[node name="Constellations" type="Node" parent="." unique_id=1195503923]
+
+[node name="Constellation" type="Sprite3D" parent="Constellations" unique_id=502914808]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.811188, 31.131752)
-texture = ExtResource("9_wkp8b")
+texture = ExtResource("10_5vvyt")
 script = ExtResource("10_20pc6")
-shaded_texture = ExtResource("9_20pc6")
+shaded_texture = ExtResource("12_c6i3y")
+
+[node name="Constellation2" type="Sprite3D" parent="Constellations" unique_id=407290105]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.51356, 30.81119, 17.486053)
+texture = ExtResource("10_5vvyt")
+script = ExtResource("10_20pc6")
+shaded_texture = ExtResource("12_c6i3y")
+
+[node name="Constellation3" type="Sprite3D" parent="Constellations" unique_id=2133575526]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.664421, 30.81119, -18.98584)
+texture = ExtResource("10_5vvyt")
+script = ExtResource("10_20pc6")
+shaded_texture = ExtResource("12_c6i3y")
+
+[node name="Constellation4" type="Sprite3D" parent="Constellations" unique_id=386121547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.311768, 30.81119, 1.1198959)
+texture = ExtResource("10_5vvyt")
+script = ExtResource("10_20pc6")
+shaded_texture = ExtResource("12_c6i3y")

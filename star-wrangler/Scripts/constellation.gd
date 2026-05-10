@@ -8,14 +8,18 @@ var base_texture : Texture;
 @onready var player_camera : Camera3D = get_viewport().get_camera_3d();
 
 var is_looked_at : bool = false
-var discovered : bool = false
+var has_outlaw_star : bool = false
+var is_completed : bool = false
+
+# signals
+signal constellation_completed
 
 func _ready() -> void:
 	base_texture = texture; # cache base texture
 	look_at(player_camera.global_position, Vector3.UP) # billboard to camera at ready since cam doesn't move
 
 func _process(delta: float) -> void:
-	if discovered: return;
+	if is_completed or not has_outlaw_star: return;
 	var looked_at = _is_camera_looking_at_me()
 	
 	if looked_at != is_looked_at:
@@ -23,14 +27,16 @@ func _process(delta: float) -> void:
 		texture = shaded_texture if is_looked_at else base_texture
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_looked_at or discovered: return # guard if already discovered or not looking at
+	if not is_looked_at or not has_outlaw_star or is_completed: return # guard if doesn't have the outlaw star or is already fixed
 	
 	if event is InputEventMouseButton:
 		var mb_event : InputEventMouseButton = event as InputEventMouseButton
 		match mb_event.button_index:
 			MOUSE_BUTTON_LEFT:
 				if not mb_event.pressed: # left mouse button pressed while looking at undiscovered constellation
-					discovered = true
+					is_completed = true
+					constellation_completed.emit();
+					has_outlaw_star = false
 					texture = shaded_texture # just to ensure the right tex is showing
 			_:
 				pass

@@ -11,6 +11,10 @@ uniform float star_size = 5;
 uniform float twinkle_speed = 5.0;
 uniform int star_layers = 3;
 
+uniform vec4 sky_top_color : source_color = vec4(0.0,0.0,0.0,1.0);
+uniform vec4 sky_horizon_color : source_color = vec4(0.02,0.0,0.05,1.0);
+uniform float sky_gradient_exponent : hint_range(0.1, 10.0, 0.1) = 1.0;
+
 uniform sampler3D gas_noise_one;
 uniform vec3 gas_color_one : source_color = vec3(1.0);
 uniform sampler3D gas_noise_two;
@@ -190,6 +194,7 @@ vec3 GasLayer(vec2 uv, sampler3D noise, vec3 color) {
 }
 
 void sky() {
+	
 	float blend = smoothstep(star_blend, 1, abs(EYEDIR.y));
 	float depth_curve = pow(abs(EYEDIR.y), depth_blend);
 	for (float i = 1.0; i <= float(star_layers); i++){
@@ -202,5 +207,10 @@ void sky() {
 	}
 	COLOR += GasLayer(SKY_COORDS, gas_noise_one, gas_color_one) * (blend - 0.1);
 	COLOR += GasLayer(SKY_COORDS, gas_noise_two, gas_color_two) * (blend + 0.1);
+	
+	// gradient
+	float horizon_factor = pow(clamp(EYEDIR.y, 0.0, 1.0), sky_gradient_exponent);
+	vec3 gradient = mix(sky_horizon_color.rgb, sky_top_color.rgb, horizon_factor);
+	COLOR = max(COLOR, gradient);
 	
 }
