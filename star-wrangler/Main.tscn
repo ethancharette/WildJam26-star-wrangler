@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://8eslwsfm0hia"]
 
-[ext_resource type="Shader" uid="uid://bpyoewemalvh5" path="res://Starfield.gdshader" id="1_glv2v"]
+[ext_resource type="Shader" uid="uid://bpyoewemalvh5" path="res://shaders/Starfield.gdshader" id="1_glv2v"]
+[ext_resource type="PackedScene" uid="uid://cs5ogd5erogyx" path="res://prefabs/player.tscn" id="2_r0du0"]
+[ext_resource type="Material" uid="uid://bseosusb6lp0o" path="res://materials/fully_black.tres" id="2_uu6xs"]
+[ext_resource type="Material" uid="uid://fkreh64224yw" path="res://materials/debug_red.tres" id="4_fos0i"]
+[ext_resource type="Material" uid="uid://dg3ywt3eeun1r" path="res://materials/debug_blue.tres" id="5_3dxm6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uu6xs"]
 shader = ExtResource("1_glv2v")
@@ -19,7 +23,41 @@ sky_material = SubResource("ShaderMaterial_uu6xs")
 background_mode = 2
 sky = SubResource("Sky_r0du0")
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_r0du0"]
+size = Vector2(1000, 1000)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lgr22"]
+
 [node name="Node3D" type="Node3D" unique_id=1971617883]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1485121600]
 environment = SubResource("Environment_rxg2q")
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1389308952]
+material_override = ExtResource("2_uu6xs")
+mesh = SubResource("PlaneMesh_r0du0")
+
+[node name="Angle Markers" type="Node3D" parent="." unique_id=1779656704]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Angle Markers" unique_id=587846934]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+material_override = ExtResource("4_fos0i")
+mesh = SubResource("BoxMesh_lgr22")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Angle Markers" unique_id=732019922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+material_override = ExtResource("4_fos0i")
+mesh = SubResource("BoxMesh_lgr22")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Angle Markers" unique_id=1469344225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+material_override = ExtResource("5_3dxm6")
+mesh = SubResource("BoxMesh_lgr22")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Angle Markers" unique_id=1748411414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
+material_override = ExtResource("5_3dxm6")
+mesh = SubResource("BoxMesh_lgr22")
+
+[node name="Player" parent="." unique_id=583585473 instance=ExtResource("2_r0du0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

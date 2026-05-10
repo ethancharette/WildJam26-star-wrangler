@@ -1,7 +1,7 @@
 shader_type sky;
 
 #include "res://addons/ShaderLib/Artistic/Artistic.gdshaderinc"
-#include "addons/ShaderLib/UV/UV.gdshaderinc"
+#include "res://addons/ShaderLib/UV/UV.gdshaderinc"
 
 uniform float star_height = 5.0;
 uniform float star_blend : hint_range(0.0,1.0,0.01) = 0.1;
