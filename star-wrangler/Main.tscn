@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://dm16e2521tva" path="res://sprites/constellation_fish/constellation_fish_base.png" id="10_5vvyt"]
 [ext_resource type="Script" uid="uid://c50k0eefmab0h" path="res://Scripts/constellation.gd" id="10_20pc6"]
 [ext_resource type="Texture2D" uid="uid://07now6pmgqxb" path="res://sprites/constellation_fish/constellation_fish_shaded.png" id="12_c6i3y"]
+[ext_resource type="Texture2D" uid="uid://cad2emp37mcx3" path="res://icon.svg" id="13_c6i3y"]
+[ext_resource type="Script" uid="uid://cigpa5uablchk" path="res://Scripts/outlaw_star.gd" id="14_c2ibq"]
 
 [sub_resource type="Gradient" id="Gradient_fos0i"]
 offsets = PackedFloat32Array(0.5, 1)
@@ -93,11 +95,15 @@ material = ExtResource("7_lgr22")
 radius = 200.0
 height = 10.0
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_c2ibq"]
+radius = 0.12522042
+
 [node name="Node3D" type="Node3D" unique_id=1971617883]
 
-[node name="Game Manager" type="Node" parent="." unique_id=989940495 node_paths=PackedStringArray("constellations_parent")]
+[node name="Game Manager" type="Node" parent="." unique_id=989940495 node_paths=PackedStringArray("constellations_parent", "outlaw_star")]
 script = ExtResource("1_5vvyt")
 constellations_parent = NodePath("../Constellations")
+outlaw_star = NodePath("../Constellations/Constellation/Outlaw Star")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1485121600]
 environment = SubResource("Environment_rxg2q")
@@ -152,6 +158,18 @@ texture = ExtResource("10_5vvyt")
 script = ExtResource("10_20pc6")
 shaded_texture = ExtResource("12_c6i3y")
 
+[node name="Outlaw Star" type="Area3D" parent="Constellations/Constellation" unique_id=293400730]
+script = ExtResource("14_c2ibq")
+target_change_frequency = 1.25
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Constellations/Constellation/Outlaw Star" unique_id=1948254866]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+shape = SubResource("SphereShape3D_c2ibq")
+
+[node name="Sprite3D" type="Sprite3D" parent="Constellations/Constellation/Outlaw Star" unique_id=1283831803]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+texture = ExtResource("13_c6i3y")
+
 [node name="Constellation2" type="Sprite3D" parent="Constellations" unique_id=407290105]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.51356, 30.81119, 17.486053)
 texture = ExtResource("10_5vvyt")
@@ -169,3 +187,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.311768, 30.81119, 1.119895
 texture = ExtResource("10_5vvyt")
 script = ExtResource("10_20pc6")
 shaded_texture = ExtResource("12_c6i3y")
+
+[connection signal="input_event" from="Constellations/Constellation/Outlaw Star" to="Constellations/Constellation/Outlaw Star" method="_on_input_event"]
+[connection signal="mouse_entered" from="Constellations/Constellation/Outlaw Star" to="Constellations/Constellation/Outlaw Star" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Constellations/Constellation/Outlaw Star" to="Constellations/Constellation/Outlaw Star" method="_on_mouse_exited"]

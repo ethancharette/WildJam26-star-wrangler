@@ -1,4 +1,5 @@
 extends Camera3D
+class_name PlayerCamera
 
 ## the camera sensitivity as a percentage, x and y indicate horizontal and vertical axes respectively
 @export var camera_sensitivity : Vector2 = Vector2(0.005, 0.005)
@@ -22,7 +23,10 @@ var target_fov : float = fov
 
 var camera_rotation : Vector2 = Vector2() # radians
 
-var right_click_held : bool = false;
+var right_click_held : bool = false
+
+var rotation_locked : bool = false
+var zoom_locked : bool = false
 
 func _ready() -> void:
 	# set initial look rotation upwards (copied what u did for input)
@@ -36,7 +40,7 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		if right_click_held:
+		if right_click_held and not rotation_locked:
 			var mm_event : InputEventMouseMotion = event as InputEventMouseMotion
 			camera_rotation.x -= event.screen_relative.x * camera_sensitivity.x # idk why inverting it is the proper one it's weird
 			camera_rotation.y -= event.screen_relative.y * camera_sensitivity.y
@@ -55,8 +59,39 @@ func _unhandled_input(event: InputEvent) -> void:
 			MOUSE_BUTTON_RIGHT:
 				right_click_held = mb_event.pressed
 			MOUSE_BUTTON_WHEEL_UP: # zoom in
-				target_fov = max(fov - zoom_increment, min_zoom) 
-			MOUSE_BUTTON_WHEEL_DOWN: # zoom out
-				target_fov = min(fov + zoom_increment, max_zoom)
+				if not zoom_locked:
+					target_fov = max(fov - zoom_increment, min_zoom) 
+			MOUSE_BUTTON_WHEEL_DOWN : # zoom out
+				if not zoom_locked:
+					target_fov = min(fov + zoom_increment, max_zoom)
 			_:
 				pass
+
+@onready var previous_fov = fov
+func remove_focus() -> void:
+	rotation_locked = false
+	zoom_locked = false
+	target_fov = previous_fov # reset fov
+
+func focus_on_position(target_node : Node) -> void:
+	# lock control
+	rotation_locked = true
+	zoom_locked = true
+	
+	# look at target pos
+	look_at(target_node.global_position)
+	
+	# calculate fov based on target sprite size and distance (this is so ugly)
+	var texture_size = target_node.texture.get_size()
+	var sprite_height = texture_size.y * target_node.pixel_size * target_node.scale.y
+	var sprite_width = texture_size.x * target_node.pixel_size * target_node.scale.x
+	var distance = global_position.distance_to(target_node.global_position)
+	var viewport_aspect = get_viewport().get_visible_rect().size.aspect()
+	var sprite_aspect = target_node.get_item_rect().size.aspect()
+	var height_to_fit = sprite_height
+	if sprite_aspect > viewport_aspect:
+		height_to_fit = sprite_width / viewport_aspect
+	
+	var fov_rad = 2.0 * atan((height_to_fit * 1.1 / 2.0) / distance)
+	previous_fov = target_fov
+	target_fov = clamp(rad_to_deg(fov_rad), 1.0, 179.0)
