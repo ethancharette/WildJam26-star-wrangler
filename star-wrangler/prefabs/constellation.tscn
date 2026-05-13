@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://d0yy3wj17hjd2"]
+
+[ext_resource type="Script" uid="uid://c50k0eefmab0h" path="res://Scripts/constellation.gd" id="1_hdqhj"]
+[ext_resource type="Texture2D" uid="uid://glpacj835nsm" path="res://sprites/constellation_duck/constellation_duck_stars.png" id="2_4hnbm"]
+[ext_resource type="Texture2D" uid="uid://cvc8v0f34ildr" path="res://sprites/constellation_duck/constellation_duck_lines.png" id="3_g8yww"]
+[ext_resource type="Texture2D" uid="uid://cj1awi7bnbbb8" path="res://sprites/constellation_duck/constellation_duck_shaded.png" id="4_1j2js"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5tuhn"]
+size = Vector3(16.665802, 15.823456, 1)
+
+[node name="Constellation" type="Area3D" unique_id=403411751 node_paths=PackedStringArray("star_sprite", "line_sprite", "shaded_sprite")]
+script = ExtResource("1_hdqhj")
+star_sprite = NodePath("Sprite_Star")
+line_sprite = NodePath("Sprite_Line")
+shaded_sprite = NodePath("Sprite_Shaded")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1885956614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.062332153, -1.3410492, 0)
+shape = SubResource("BoxShape3D_5tuhn")
+
+[node name="Sprite_Star" type="Sprite3D" parent="." unique_id=2035096877]
+texture = ExtResource("2_4hnbm")
+
+[node name="Sprite_Line" type="Sprite3D" parent="." unique_id=1800767896]
+texture = ExtResource("3_g8yww")
+
+[node name="Sprite_Shaded" type="Sprite3D" parent="." unique_id=2058731896]
+texture = ExtResource("4_1j2js")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

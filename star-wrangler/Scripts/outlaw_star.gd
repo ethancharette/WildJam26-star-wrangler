@@ -50,8 +50,10 @@ func _process(delta: float) -> void:
 
 func _get_new_target_pos() -> Vector3:
 	# from origin of current_constellation
-	var half_width = (current_constellation.texture.get_width() * current_constellation.pixel_size * current_constellation.scale.x) / 2.0
-	var half_height = (current_constellation.texture.get_height() * current_constellation.pixel_size * current_constellation.scale.y) / 2.0
+	var sprite = current_constellation.star_sprite
+	var texture = sprite.texture
+	var half_width = (texture.get_width() * sprite.pixel_size * current_constellation.scale.x) / 2.0
+	var half_height = (texture.get_height() * sprite.pixel_size * current_constellation.scale.y) / 2.0
 
 	var random_local_x = randf_range(-half_width, half_width)
 	var random_local_y = randf_range(-half_height, half_height)

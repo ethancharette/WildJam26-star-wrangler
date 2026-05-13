@@ -9,18 +9,12 @@
 [ext_resource type="Shader" uid="uid://bsqushsl483m0" path="res://shaders/blackhole.gdshader" id="6_3dxm6"]
 [ext_resource type="Material" uid="uid://ch0m6sb56fymb" path="res://materials/blackhole_disk.tres" id="7_lgr22"]
 [ext_resource type="Script" uid="uid://be6w35xaokwcx" path="res://Scripts/rotator.gd" id="8_trn2v"]
-[ext_resource type="Texture2D" uid="uid://tgmn30i6irbi" path="res://sprites/outlaws/outlaw_01.png" id="11_j4qnp"]
-[ext_resource type="PackedScene" uid="uid://d0yy3wj17hjd2" path="res://prefabs/constellation.tscn" id="12_j4qnp"]
-[ext_resource type="Texture2D" uid="uid://c6nejsokdqrfd" path="res://sprites/constellation_pizza/constellation_pizza_stars.png" id="13_devvj"]
-[ext_resource type="Texture2D" uid="uid://dh3384x8pbt36" path="res://sprites/constellation_owl/constellation_owl_stars.png" id="13_fpfj3"]
-[ext_resource type="Texture2D" uid="uid://fjjobj7w3pyy" path="res://sprites/constellation_pizza/constellation_pizza_lines.png" id="14_3b0ty"]
+[ext_resource type="Script" uid="uid://c50k0eefmab0h" path="res://Scripts/constellation.gd" id="10_20pc6"]
+[ext_resource type="Texture2D" uid="uid://cad2emp37mcx3" path="res://icon.svg" id="13_c6i3y"]
+[ext_resource type="Texture2D" uid="uid://glpacj835nsm" path="res://sprites/constellation_duck/constellation_duck_stars.png" id="13_fpfj3"]
 [ext_resource type="Script" uid="uid://cigpa5uablchk" path="res://Scripts/outlaw_star.gd" id="14_c2ibq"]
-[ext_resource type="Texture2D" uid="uid://bc1i2ut31jnuo" path="res://sprites/constellation_owl/constellation_owl_lines.png" id="14_sc1dx"]
-[ext_resource type="Texture2D" uid="uid://bn1k8qh17c1y0" path="res://sprites/constellation_pizza/constellation_pizza_shaded.png" id="15_bg4s2"]
-[ext_resource type="Texture2D" uid="uid://bc4qw0h4585pp" path="res://sprites/constellation_owl/constellation_owl_shaded.png" id="15_kjvhd"]
-[ext_resource type="Texture2D" uid="uid://b5wa6mxa3sb65" path="res://sprites/constellation_apple/constellation_apple_stars.png" id="19_hhcpw"]
-[ext_resource type="Texture2D" uid="uid://7rtusfde21o1" path="res://sprites/constellation_apple/constellation_apple_lines.png" id="20_mxvw5"]
-[ext_resource type="Texture2D" uid="uid://0nm4hdudh7nh" path="res://sprites/constellation_apple/constellation_apple_shaded.png" id="21_xrxkg"]
+[ext_resource type="Texture2D" uid="uid://cvc8v0f34ildr" path="res://sprites/constellation_duck/constellation_duck_lines.png" id="14_sc1dx"]
+[ext_resource type="Texture2D" uid="uid://cj1awi7bnbbb8" path="res://sprites/constellation_duck/constellation_duck_shaded.png" id="15_kjvhd"]
 
 [sub_resource type="Gradient" id="Gradient_fos0i"]
 offsets = PackedFloat32Array(0.5, 1)
@@ -105,6 +99,9 @@ height = 10.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_c2ibq"]
 radius = 0.12522042
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5tuhn"]
+size = Vector3(16.665802, 15.823456, 1)
+
 [node name="Node3D" type="Node3D" unique_id=1971617883]
 
 [node name="Game Manager" type="Node" parent="." unique_id=989940495 node_paths=PackedStringArray("constellations_parent", "outlaw_star")]
@@ -168,54 +165,31 @@ shape = SubResource("SphereShape3D_c2ibq")
 
 [node name="Sprite3D" type="Sprite3D" parent="Outlaw Star" unique_id=1283831803]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
-texture = ExtResource("11_j4qnp")
+texture = ExtResource("13_c6i3y")
 
 [node name="Constellations" type="Node" parent="." unique_id=1195503923]
 
-[node name="Constellation_Duck" parent="Constellations" unique_id=403411751 instance=ExtResource("12_j4qnp")]
+[node name="Constellation" type="Area3D" parent="Constellations" unique_id=1101730246 node_paths=PackedStringArray("star_sprite", "line_sprite", "shaded_sprite")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.811188, 31.131752)
+script = ExtResource("10_20pc6")
+star_sprite = NodePath("Sprite_Star")
+line_sprite = NodePath("Sprite_Line")
+shaded_sprite = NodePath("Sprite_Shaded")
 
-[node name="Constellation_Pizza" parent="Constellations" unique_id=1893101060 instance=ExtResource("12_j4qnp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.547062, 55.40902, -16.05965)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Constellations/Constellation" unique_id=1690598823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.062332153, -1.3410492, 0)
+shape = SubResource("BoxShape3D_5tuhn")
 
-[node name="Sprite_Star" parent="Constellations/Constellation_Pizza" index="1" unique_id=2035096877]
-texture = ExtResource("13_devvj")
-
-[node name="Sprite_Line" parent="Constellations/Constellation_Pizza" index="2" unique_id=1800767896]
-texture = ExtResource("14_3b0ty")
-
-[node name="Sprite_Shaded" parent="Constellations/Constellation_Pizza" index="3" unique_id=2058731896]
-texture = ExtResource("15_bg4s2")
-
-[node name="Constellation_Owl" parent="Constellations" unique_id=2058648554 instance=ExtResource("12_j4qnp")]
-transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -39.46582, 64.67496, 0)
-
-[node name="Sprite_Star" parent="Constellations/Constellation_Owl" index="1" unique_id=2035096877]
+[node name="Sprite_Star" type="Sprite3D" parent="Constellations/Constellation" unique_id=299570420]
 texture = ExtResource("13_fpfj3")
 
-[node name="Sprite_Line" parent="Constellations/Constellation_Owl" index="2" unique_id=1800767896]
+[node name="Sprite_Line" type="Sprite3D" parent="Constellations/Constellation" unique_id=1035252998]
 texture = ExtResource("14_sc1dx")
 
-[node name="Sprite_Shaded" parent="Constellations/Constellation_Owl" index="3" unique_id=2058731896]
+[node name="Sprite_Shaded" type="Sprite3D" parent="Constellations/Constellation" unique_id=1857098563]
 texture = ExtResource("15_kjvhd")
-
-[node name="Constellation_Apple" parent="Constellations" unique_id=1282434742 instance=ExtResource("12_j4qnp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -10.596687, 33.309685, -49.33358)
-
-[node name="Sprite_Star" parent="Constellations/Constellation_Apple" index="1" unique_id=2035096877]
-texture = ExtResource("19_hhcpw")
-
-[node name="Sprite_Line" parent="Constellations/Constellation_Apple" index="2" unique_id=1800767896]
-texture = ExtResource("20_mxvw5")
-
-[node name="Sprite_Shaded" parent="Constellations/Constellation_Apple" index="3" unique_id=2058731896]
-texture = ExtResource("21_xrxkg")
 
 [connection signal="input_event" from="Outlaw Star" to="Outlaw Star" method="_on_input_event"]
 [connection signal="mouse_entered" from="Outlaw Star" to="Outlaw Star" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Outlaw Star" to="Outlaw Star" method="_on_mouse_exited"]
-
-[editable path="Constellations/Constellation_Duck"]
-[editable path="Constellations/Constellation_Pizza"]
-[editable path="Constellations/Constellation_Owl"]
-[editable path="Constellations/Constellation_Apple"]
+[connection signal="input_event" from="Constellations/Constellation" to="Constellations/Constellation" method="_on_input_event"]

@@ -82,12 +82,13 @@ func focus_on_position(target_node : Node) -> void:
 	look_at(target_node.global_position)
 	
 	# calculate fov based on target sprite size and distance (this is so ugly)
-	var texture_size = target_node.texture.get_size()
-	var sprite_height = texture_size.y * target_node.pixel_size * target_node.scale.y
-	var sprite_width = texture_size.x * target_node.pixel_size * target_node.scale.x
-	var distance = global_position.distance_to(target_node.global_position)
+	var sprite = target_node.star_sprite
+	var texture_size = sprite.texture.get_size()
+	var sprite_height = texture_size.y * sprite.pixel_size * target_node.scale.y
+	var sprite_width = texture_size.x * sprite.pixel_size * target_node.scale.x
+	var distance = global_position.distance_to(sprite.global_position)
 	var viewport_aspect = get_viewport().get_visible_rect().size.aspect()
-	var sprite_aspect = target_node.get_item_rect().size.aspect()
+	var sprite_aspect = sprite.get_item_rect().size.aspect()
 	var height_to_fit = sprite_height
 	if sprite_aspect > viewport_aspect:
 		height_to_fit = sprite_width / viewport_aspect

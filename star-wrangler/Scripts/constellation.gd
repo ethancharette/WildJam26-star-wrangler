@@ -1,18 +1,20 @@
-extends Sprite3D
+extends Area3D
 class_name Constellation
 
-@export var shaded_texture : Texture
-var base_texture : Texture
+@export var star_sprite : Sprite3D
+@export var line_sprite : Sprite3D
+@export var shaded_sprite : Sprite3D
+@export var look_threshold_degrees : float = 25.0
 
-@export var look_threshold_degrees : float = 10.0 # padding to avoid needing to be spot on
+enum SpriteType {STARS, LINES, SHADED}
 
 @onready var player_camera : Camera3D = get_viewport().get_camera_3d()
 
-var is_looked_at : bool = false
 var is_focused : bool = false
 func _set_focused(b : bool):
 	is_focused = b
 	focused_changed.emit(is_focused)
+	_set_sprite(SpriteType.STARS) if not is_focused else _set_sprite(SpriteType.LINES)
 var has_outlaw_star : bool = false
 var is_completed : bool = false
 
@@ -21,21 +23,21 @@ signal constellation_completed
 signal focused_changed(focused : bool)
 
 func _ready() -> void:
-	base_texture = texture; # cache base texture
+	_set_sprite(SpriteType.STARS) # cache base texture
 	look_at(player_camera.global_position, Vector3.UP) # billboard to camera at ready since cam doesn't move
 
 func _process(delta: float) -> void:
 	if is_completed or not has_outlaw_star: return;
-	is_looked_at = _is_camera_looking_at_me()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if not is_looked_at or not has_outlaw_star or is_completed: return # guard if doesn't have the outlaw star or is already fixed
+
+func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+	if is_completed: return # guard if doesn't have the outlaw star or is already fixed
 	
 	if event is InputEventMouseButton:
 		var mb_event : InputEventMouseButton = event as InputEventMouseButton
 		match mb_event.button_index:
 			MOUSE_BUTTON_LEFT:
-				if not mb_event.pressed and not is_focused: # left mouse button pressed while looking at incomplete constellation
+				if not mb_event.pressed and not is_focused:
 					_set_focused(true)
 					player_camera.focus_on_position(self)
 			MOUSE_BUTTON_RIGHT:
@@ -57,6 +59,23 @@ func complete_constellation() -> void:
 	is_completed = true
 	constellation_completed.emit()
 	has_outlaw_star = false
-	texture = shaded_texture # swap tex on completion
+	_set_sprite(SpriteType.SHADED)
 	
 	player_camera.remove_focus()
+
+func _set_sprite(type : SpriteType) -> void:
+	match type:
+		SpriteType.STARS:
+			star_sprite.visible = true
+			line_sprite.visible = false
+			shaded_sprite.visible = false
+		SpriteType.LINES:
+			star_sprite.visible = true
+			line_sprite.visible = true
+			shaded_sprite.visible = false
+		SpriteType.SHADED:
+			star_sprite.visible = true
+			line_sprite.visible = true
+			shaded_sprite.visible = true
+		_:
+			print("Unable to set sprite of ",name)
