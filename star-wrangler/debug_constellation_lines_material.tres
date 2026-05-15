@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dka5n52mwys4g"]
+
+[resource]
+shading_mode = 0
+specular_mode = 2
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_color = Color(1, 0, 0, 1)
+disable_receive_shadows = true
+billboard_mode = 1
+billboard_keep_scale = true

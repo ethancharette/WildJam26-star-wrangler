@@ -2,6 +2,7 @@ extends Area3D
 class_name OutlawStar
 
 var current_constellation : Constellation
+var current_constellation_node : int
 
 #region Activity
 var active : bool = false
@@ -50,20 +51,28 @@ func _process(delta: float) -> void:
 
 func _get_new_target_pos() -> Vector3:
 	# from origin of current_constellation
-	var sprite = current_constellation.star_sprite
-	var texture = sprite.texture
-	var half_width = (texture.get_width() * sprite.pixel_size * current_constellation.scale.x) / 2.0
-	var half_height = (texture.get_height() * sprite.pixel_size * current_constellation.scale.y) / 2.0
+	#var sprite = current_constellation.star_sprite
+	#var texture = sprite.texture
+	#var half_width = (texture.get_width() * sprite.pixel_size * current_constellation.scale.x) / 2.0
+	#var half_height = (texture.get_height() * sprite.pixel_size * current_constellation.scale.y) / 2.0
 
-	var random_local_x = randf_range(-half_width, half_width)
-	var random_local_y = randf_range(-half_height, half_height)
-	var local_offset = Vector3(random_local_x, random_local_y, 0.0)
-	print("New Target Pos: ",current_constellation.to_global(local_offset))
-	return current_constellation.to_global(local_offset)
+	#var random_local_x = randf_range(-half_width, half_width)
+	#var random_local_y = randf_range(-half_height, half_height)
+	#var local_offset = Vector3(random_local_x, random_local_y, 0.0)
+	#print("New Target Pos: ",current_constellation.to_global(local_offset))
+	#return current_constellation.to_global(local_offset)
+	var new_target_node : int = 0
+	if (current_constellation_node == -1):
+		new_target_node = current_constellation.constellation_graph.get_random_neighbor(0) # TODO: swap out with actualling picking good starting positions
+	else:
+		new_target_node = current_constellation.constellation_graph.get_random_neighbor(current_constellation_node)
+	current_constellation_node = new_target_node
+	return current_constellation.to_global(current_constellation.star_positions[new_target_node].position)
 
 func enter_constellation(new_constellation : Constellation) -> void:
 	current_constellation = new_constellation
 	
+	current_constellation_node = -1
 	current_target_position = _get_new_target_pos() # first get a new target position
 	
 	reparent(current_constellation)

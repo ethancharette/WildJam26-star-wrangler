@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Graph" format=3 uid="uid://ba8chcktjw0lm"]
+
+[ext_resource type="Script" uid="uid://bvg64nk84tw0n" path="res://Scripts/graph.gd" id="1_7qpcj"]
+
+[resource]
+script = ExtResource("1_7qpcj")
+edge_lookup = Dictionary[int, Array]({
+0: [1, 4, 7],
+1: [0, 2],
+2: [1, 7],
+4: [0, 5],
+5: [4, 6],
+6: [5, 7],
+7: [0, 2, 6]
+})
+metadata/_custom_type_script = "uid://bvg64nk84tw0n"

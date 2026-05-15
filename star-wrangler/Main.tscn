@@ -8,9 +8,10 @@
 [ext_resource type="Material" uid="uid://dg3ywt3eeun1r" path="res://materials/debug_blue.tres" id="5_3dxm6"]
 [ext_resource type="Shader" uid="uid://bsqushsl483m0" path="res://shaders/blackhole.gdshader" id="6_3dxm6"]
 [ext_resource type="Material" uid="uid://ch0m6sb56fymb" path="res://materials/blackhole_disk.tres" id="7_lgr22"]
-[ext_resource type="Script" uid="uid://be6w35xaokwcx" path="res://Scripts/rotator.gd" id="8_trn2v"]
+[ext_resource type="Script" uid="uid://be6w35xaokwcx" path="res://scripts/rotator.gd" id="8_trn2v"]
 [ext_resource type="Texture2D" uid="uid://tgmn30i6irbi" path="res://sprites/outlaws/outlaw_01.png" id="11_j4qnp"]
 [ext_resource type="PackedScene" uid="uid://d0yy3wj17hjd2" path="res://prefabs/constellation.tscn" id="12_j4qnp"]
+[ext_resource type="Resource" uid="uid://caua434xwdvcs" path="res://graph_data/constellation_pizza.tres" id="13_bg4s2"]
 [ext_resource type="Texture2D" uid="uid://c6nejsokdqrfd" path="res://sprites/constellation_pizza/constellation_pizza_stars.png" id="13_devvj"]
 [ext_resource type="Texture2D" uid="uid://dh3384x8pbt36" path="res://sprites/constellation_owl/constellation_owl_stars.png" id="13_fpfj3"]
 [ext_resource type="Texture2D" uid="uid://fjjobj7w3pyy" path="res://sprites/constellation_pizza/constellation_pizza_lines.png" id="14_3b0ty"]
@@ -18,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://bc1i2ut31jnuo" path="res://sprites/constellation_owl/constellation_owl_lines.png" id="14_sc1dx"]
 [ext_resource type="Texture2D" uid="uid://bn1k8qh17c1y0" path="res://sprites/constellation_pizza/constellation_pizza_shaded.png" id="15_bg4s2"]
 [ext_resource type="Texture2D" uid="uid://bc4qw0h4585pp" path="res://sprites/constellation_owl/constellation_owl_shaded.png" id="15_kjvhd"]
+[ext_resource type="Resource" uid="uid://cymdpgoae8m7f" path="res://graph_data/constellation_owl.tres" id="17_hhcpw"]
+[ext_resource type="Resource" uid="uid://dhdatuti0dgfw" path="res://graph_data/constellation_apple.tres" id="19_3b0ty"]
 [ext_resource type="Texture2D" uid="uid://b5wa6mxa3sb65" path="res://sprites/constellation_apple/constellation_apple_stars.png" id="19_hhcpw"]
 [ext_resource type="Texture2D" uid="uid://7rtusfde21o1" path="res://sprites/constellation_apple/constellation_apple_lines.png" id="20_mxvw5"]
 [ext_resource type="Texture2D" uid="uid://0nm4hdudh7nh" path="res://sprites/constellation_apple/constellation_apple_shaded.png" id="21_xrxkg"]
@@ -177,6 +180,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.811188, 31.131752)
 
 [node name="Constellation_Pizza" parent="Constellations" unique_id=1893101060 instance=ExtResource("12_j4qnp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.547062, 55.40902, -16.05965)
+constellation_graph = ExtResource("13_bg4s2")
 
 [node name="Sprite_Star" parent="Constellations/Constellation_Pizza" index="1" unique_id=2035096877]
 texture = ExtResource("13_devvj")
@@ -187,8 +191,33 @@ texture = ExtResource("14_3b0ty")
 [node name="Sprite_Shaded" parent="Constellations/Constellation_Pizza" index="3" unique_id=2058731896]
 texture = ExtResource("15_bg4s2")
 
+[node name="Star_0" parent="Constellations/Constellation_Pizza/Star_Positions" parent_id_path=PackedInt32Array(1893101060, 183090473) index="0" unique_id=1679020013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.099090576, -3.0935516, 0)
+
+[node name="Star_1" parent="Constellations/Constellation_Pizza/Star_Positions" parent_id_path=PackedInt32Array(1893101060, 183090473) index="1" unique_id=516183297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5131912, 0.06257248, 0)
+
+[node name="Star_2" parent="Constellations/Constellation_Pizza/Star_Positions" parent_id_path=PackedInt32Array(1893101060, 183090473) index="2" unique_id=130980827]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11042786, 7.498852, 0)
+
+[node name="Star_3" parent="Constellations/Constellation_Pizza/Star_Positions" parent_id_path=PackedInt32Array(1893101060, 183090473) index="3" unique_id=1898072080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6349258, 2.6041908, 0)
+
+[node name="Star_4" parent="Constellations/Constellation_Pizza/Star_Positions" parent_id_path=PackedInt32Array(1893101060, 183090473) index="4" unique_id=625653047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.011978, -5.466057, 0)
+
+[node name="Star_5" parent="Constellations/Constellation_Pizza/Star_Positions" parent_id_path=PackedInt32Array(1893101060, 183090473) index="5" unique_id=381482814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13008499, -7.915306, 0)
+
+[node name="Star_6" parent="Constellations/Constellation_Pizza/Star_Positions" parent_id_path=PackedInt32Array(1893101060, 183090473) index="6" unique_id=1318223459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9746246, -5.564522, 0)
+
+[node name="Star_7" parent="Constellations/Constellation_Pizza/Star_Positions" parent_id_path=PackedInt32Array(1893101060, 183090473) index="7" unique_id=1858354092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2099876, -3.3935432, 0)
+
 [node name="Constellation_Owl" parent="Constellations" unique_id=2058648554 instance=ExtResource("12_j4qnp")]
 transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -39.46582, 64.67496, 0)
+constellation_graph = ExtResource("17_hhcpw")
 
 [node name="Sprite_Star" parent="Constellations/Constellation_Owl" index="1" unique_id=2035096877]
 texture = ExtResource("13_fpfj3")
@@ -199,8 +228,34 @@ texture = ExtResource("14_sc1dx")
 [node name="Sprite_Shaded" parent="Constellations/Constellation_Owl" index="3" unique_id=2058731896]
 texture = ExtResource("15_kjvhd")
 
-[node name="Constellation_Apple" parent="Constellations" unique_id=1282434742 instance=ExtResource("12_j4qnp")]
+[node name="Star_0" parent="Constellations/Constellation_Owl/Star_Positions" parent_id_path=PackedInt32Array(2058648554, 183090473) index="0" unique_id=1679020013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011669159, 3.1541748, 0)
+
+[node name="Star_1" parent="Constellations/Constellation_Owl/Star_Positions" parent_id_path=PackedInt32Array(2058648554, 183090473) index="1" unique_id=516183297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4520187, 5.009369, 0)
+
+[node name="Star_2" parent="Constellations/Constellation_Owl/Star_Positions" parent_id_path=PackedInt32Array(2058648554, 183090473) index="2" unique_id=130980827]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.026786804, 7.3306274, 0)
+
+[node name="Star_3" parent="Constellations/Constellation_Owl/Star_Positions" parent_id_path=PackedInt32Array(2058648554, 183090473) index="3" unique_id=1898072080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5766602, 5.0320816, 0)
+
+[node name="Star_4" parent="Constellations/Constellation_Owl/Star_Positions" parent_id_path=PackedInt32Array(2058648554, 183090473) index="4" unique_id=625653047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1552773, 0.6940918, 0)
+
+[node name="Star_5" parent="Constellations/Constellation_Owl/Star_Positions" parent_id_path=PackedInt32Array(2058648554, 183090473) index="5" unique_id=381482814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1521416, -1.947876, 0)
+
+[node name="Star_6" parent="Constellations/Constellation_Owl/Star_Positions" parent_id_path=PackedInt32Array(2058648554, 183090473) index="6" unique_id=1318223459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2902298, -1.9633675, 0)
+
+[node name="Star_7" parent="Constellations/Constellation_Owl/Star_Positions" parent_id_path=PackedInt32Array(2058648554, 183090473) index="7" unique_id=1858354092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1510315, 0.85193634, 0)
+
+[node name="Constellation_Apple" parent="Constellations" unique_id=1282434742 node_paths=PackedStringArray("star_positions") instance=ExtResource("12_j4qnp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -10.596687, 33.309685, -49.33358)
+star_positions = [NodePath("Star_Positions/Star_0"), NodePath("Star_Positions/Star_1"), NodePath("Star_Positions/Star_2"), NodePath("Star_Positions/Star_3"), NodePath("Star_Positions/Star_4"), NodePath("Star_Positions/Star_5"), NodePath("Star_Positions/Star_6"), NodePath("Star_Positions/Star_7"), NodePath("Star_Positions/Star_8")]
+constellation_graph = ExtResource("19_3b0ty")
 
 [node name="Sprite_Star" parent="Constellations/Constellation_Apple" index="1" unique_id=2035096877]
 texture = ExtResource("19_hhcpw")
@@ -210,6 +265,33 @@ texture = ExtResource("20_mxvw5")
 
 [node name="Sprite_Shaded" parent="Constellations/Constellation_Apple" index="3" unique_id=2058731896]
 texture = ExtResource("21_xrxkg")
+
+[node name="Star_0" parent="Constellations/Constellation_Apple/Star_Positions" parent_id_path=PackedInt32Array(1282434742, 183090473) index="0" unique_id=1679020013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.10492802, -0.71824646, 0)
+
+[node name="Star_1" parent="Constellations/Constellation_Apple/Star_Positions" parent_id_path=PackedInt32Array(1282434742, 183090473) index="1" unique_id=516183297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0038642883, 2.3022995, 0)
+
+[node name="Star_2" parent="Constellations/Constellation_Apple/Star_Positions" parent_id_path=PackedInt32Array(1282434742, 183090473) index="2" unique_id=130980827]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.068701, 3.4874115, 0)
+
+[node name="Star_3" parent="Constellations/Constellation_Apple/Star_Positions" parent_id_path=PackedInt32Array(1282434742, 183090473) index="3" unique_id=1898072080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055327415, 4.5965652, 0)
+
+[node name="Star_4" parent="Constellations/Constellation_Apple/Star_Positions" parent_id_path=PackedInt32Array(1282434742, 183090473) index="4" unique_id=625653047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9298282, 3.466652, 0)
+
+[node name="Star_5" parent="Constellations/Constellation_Apple/Star_Positions" parent_id_path=PackedInt32Array(1282434742, 183090473) index="5" unique_id=381482814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9868593, 7.165123, 0)
+
+[node name="Star_6" parent="Constellations/Constellation_Apple/Star_Positions" parent_id_path=PackedInt32Array(1282434742, 183090473) index="6" unique_id=1318223459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0926142, -2.8101158, 0)
+
+[node name="Star_7" parent="Constellations/Constellation_Apple/Star_Positions" parent_id_path=PackedInt32Array(1282434742, 183090473) index="7" unique_id=1858354092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.105418205, -5.083866, 0)
+
+[node name="Star_8" type="Node3D" parent="Constellations/Constellation_Apple/Star_Positions" parent_id_path=PackedInt32Array(1282434742, 183090473) index="8" unique_id=2033291827]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1938362, -2.7725525, 0)
 
 [connection signal="input_event" from="Outlaw Star" to="Outlaw Star" method="_on_input_event"]
 [connection signal="mouse_entered" from="Outlaw Star" to="Outlaw Star" method="_on_mouse_entered"]

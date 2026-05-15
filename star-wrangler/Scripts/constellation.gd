@@ -1,10 +1,21 @@
 extends Area3D
 class_name Constellation
 
+@export var look_threshold_degrees : float = 25.0
+
+@export_group("Sprites")
 @export var star_sprite : Sprite3D
 @export var line_sprite : Sprite3D
 @export var shaded_sprite : Sprite3D
-@export var look_threshold_degrees : float = 25.0
+
+@export_group("Star Graph")
+@export var star_positions : Array[Node3D]
+@export var constellation_graph : Graph
+
+@export_group("Debug Drawing")
+@export var debug_draw_enabled : bool
+@export var debug_draw_material : Material
+@export var debug_draw_color : Color
 
 enum SpriteType {STARS, LINES, SHADED}
 
@@ -25,10 +36,11 @@ signal focused_changed(focused : bool)
 func _ready() -> void:
 	_set_sprite(SpriteType.STARS) # cache base texture
 	look_at(player_camera.global_position, Vector3.UP) # billboard to camera at ready since cam doesn't move
+	if (debug_draw_enabled):
+		_debug_draw_lines()
 
 func _process(delta: float) -> void:
 	if is_completed or not has_outlaw_star: return;
-
 
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
 	if is_completed: return # guard if doesn't have the outlaw star or is already fixed
@@ -79,3 +91,13 @@ func _set_sprite(type : SpriteType) -> void:
 			shaded_sprite.visible = true
 		_:
 			print("Unable to set sprite of ",name)
+
+func _debug_draw_lines() -> void:
+	for node in constellation_graph.edge_lookup:
+		for target in constellation_graph.edge_lookup[node]:
+			var line : Line3D = Line3D.new()
+			line.points = [star_positions[node].position, star_positions[target].position]
+			line.color = debug_draw_color
+			line.material = debug_draw_material
+			add_child(line)
+			line.position = Vector3.ZERO
