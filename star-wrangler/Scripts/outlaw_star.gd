@@ -4,11 +4,12 @@ class_name OutlawStar
 var current_constellation : Constellation
 var current_constellation_node : int
 
+@export var sprite : Sprite3D
 #region Activity
 var active : bool = false
 func _set_active(b : bool) -> void:
-	print("Outlaw Active: ",b)
 	active = b
+	sprite.visible = active
 #endregion
 
 #region Movement
@@ -25,6 +26,8 @@ var capturing : bool = false
 var capture_time : float = 0.0
 #endregion
 
+func _ready() -> void:
+	_set_active(false)
 
 func _process(delta: float) -> void:
 	if not active: return

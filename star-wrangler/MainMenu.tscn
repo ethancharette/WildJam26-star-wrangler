@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://ddctwqo4jjn34"]
+
+[ext_resource type="Script" uid="uid://pcsmsg88ogxg" path="res://Scripts/main_menu.gd" id="1_i26rj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjwba"]
+bg_color = Color(0.16091025, 0.095981024, 0.17874154, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i26rj"]
+bg_color = Color(0.118185006, 0.06455671, 0.13395604, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eiy7p"]
+bg_color = Color(0.2442196, 0.1548737, 0.26876357, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7a2f"]
+bg_color = Color(0.2442196, 0.1548737, 0.26876357, 1)
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[node name="MainMenu" type="Control" unique_id=1497427266]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i26rj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1990840799]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.053000003
+anchor_top = 0.569
+anchor_right = 0.319
+anchor_bottom = 0.919
+theme_override_constants/separation = 20
+
+[node name="Play Button" type="Button" parent="VBoxContainer" unique_id=1262813476]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_kjwba")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i26rj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eiy7p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_h7a2f")
+text = "Play"
+
+[node name="Quit Button" type="Button" parent="VBoxContainer" unique_id=1336381777]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_kjwba")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i26rj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eiy7p")
+theme_override_styles/focus = SubResource("StyleBoxFlat_h7a2f")
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/Play Button" to="." method="Start_Game"]
+[connection signal="pressed" from="VBoxContainer/Quit Button" to="." method="Quit_Game"]

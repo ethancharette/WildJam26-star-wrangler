@@ -6,6 +6,9 @@ class_name GameManager
 @onready var constellations_arr : Array = constellations_parent.get_children().filter(func(child): return child.get_script() == preload("res://Scripts/constellation.gd"))
 var available_indices : Array[int] = []
 
+# signals
+signal bounty_changed(constellation : Constellation)
+signal all_bounties_collected
 
 func _ready() -> void:
 	for i in constellations_arr.size(): available_indices.append(i)
@@ -14,6 +17,7 @@ func _ready() -> void:
 func _give_outlaw_star(constellation : Constellation) -> void:
 	constellation.has_outlaw_star = true # set bool flag
 	outlaw_star.enter_constellation(constellation) # call func on outlaw star so it knows where to go
+	bounty_changed.emit(constellation)
 
 func _set_active_constellation(index : int) -> void:
 	# grab indexed constellation and give outlaw star
@@ -39,3 +43,4 @@ func _choose_new_constellation(previous_index : int) :
 
 func _all_constellations_completed() -> void :
 	print("All Constellations Completed")
+	all_bounties_collected.emit()
