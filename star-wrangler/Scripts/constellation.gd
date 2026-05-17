@@ -11,6 +11,18 @@ class_name Constellation
 @export_group("Star Graph")
 @export var star_positions : Array[Node3D]
 @export var constellation_graph : Graph
+@export var outlaw_starting_position : int
+@export var player_starting_position : int
+
+@export_group("Player Icon")
+@export var player_icon : Sprite3D
+@export var player_icon_position : int
+func _set_player_icon_position(star_index : int) -> void:
+	player_icon_position = star_index
+	player_icon_target_position = star_positions[star_index].global_position
+@export var player_icon_move_speed : float = 10.0
+var player_icon_target_position : Vector3
+
 
 @export_group("Debug Drawing")
 @export var debug_draw_enabled : bool
@@ -26,6 +38,7 @@ func _set_focused(b : bool):
 	is_focused = b
 	focused_changed.emit(is_focused)
 	_set_sprite(SpriteType.STARS) if not is_focused else _set_sprite(SpriteType.LINES)
+	player_icon.visible = b
 var has_outlaw_star : bool = false
 var is_completed : bool = false
 
@@ -36,11 +49,17 @@ signal focused_changed(focused : bool)
 func _ready() -> void:
 	_set_sprite(SpriteType.STARS) # cache base texture
 	look_at(player_camera.global_position, Vector3.UP) # billboard to camera at ready since cam doesn't move
+	
+	_set_player_icon_position(player_starting_position)
+	#player_icon.global_position = player_icon_target_position
 	if (debug_draw_enabled):
 		_debug_draw_lines()
 
 func _process(delta: float) -> void:
-	if is_completed or not has_outlaw_star: return;
+	#if is_completed or not has_outlaw_star: return;
+	
+	player_icon.global_position.move_toward(player_icon_target_position, player_icon_move_speed)
+	player_icon.global_position = player_icon.global_position.lerp(player_icon_target_position, player_icon_move_speed * delta)
 
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
 	if is_completed: return # guard if doesn't have the outlaw star or is already fixed
@@ -72,7 +91,7 @@ func complete_constellation() -> void:
 	constellation_completed.emit()
 	has_outlaw_star = false
 	_set_sprite(SpriteType.SHADED)
-	
+	player_icon.visible = false
 	player_camera.remove_focus()
 
 func _set_sprite(type : SpriteType) -> void:

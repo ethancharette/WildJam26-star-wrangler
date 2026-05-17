@@ -9,7 +9,7 @@
 [ext_resource type="Material" uid="uid://dg3ywt3eeun1r" path="res://materials/debug_blue.tres" id="5_3dxm6"]
 [ext_resource type="Shader" uid="uid://bsqushsl483m0" path="res://shaders/blackhole.gdshader" id="6_3dxm6"]
 [ext_resource type="Material" uid="uid://ch0m6sb56fymb" path="res://materials/blackhole_disk.tres" id="7_lgr22"]
-[ext_resource type="Script" uid="uid://be6w35xaokwcx" path="res://Scripts/rotator.gd" id="8_trn2v"]
+[ext_resource type="Script" uid="uid://be6w35xaokwcx" path="res://scripts/rotator.gd" id="8_trn2v"]
 [ext_resource type="Texture2D" uid="uid://tgmn30i6irbi" path="res://sprites/outlaws/outlaw_01.png" id="11_j4qnp"]
 [ext_resource type="PackedScene" uid="uid://d0yy3wj17hjd2" path="res://prefabs/constellation.tscn" id="12_j4qnp"]
 [ext_resource type="Resource" uid="uid://caua434xwdvcs" path="res://graph_data/constellation_pizza.tres" id="13_bg4s2"]
@@ -251,10 +251,14 @@ texture = ExtResource("11_j4qnp")
 
 [node name="Constellation_Duck" parent="Environment/Constellations" unique_id=403411751 instance=ExtResource("12_j4qnp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.811188, 31.131752)
+outlaw_starting_position = 6
+player_starting_position = 1
 
 [node name="Constellation_Pizza" parent="Environment/Constellations" unique_id=1893101060 instance=ExtResource("12_j4qnp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.547062, 55.40902, -16.05965)
 constellation_graph = ExtResource("13_bg4s2")
+outlaw_starting_position = 3
+player_starting_position = 6
 
 [node name="Sprite_Star" parent="Environment/Constellations/Constellation_Pizza" index="1" unique_id=2035096877]
 texture = ExtResource("13_devvj")
@@ -292,6 +296,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2099876, -3.3935432, 0)
 [node name="Constellation_Owl" parent="Environment/Constellations" unique_id=2058648554 instance=ExtResource("12_j4qnp")]
 transform = Transform3D(1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -39.46582, 64.67496, 0)
 constellation_graph = ExtResource("17_hhcpw")
+outlaw_starting_position = 2
+player_starting_position = 6
 
 [node name="Sprite_Star" parent="Environment/Constellations/Constellation_Owl" index="1" unique_id=2035096877]
 texture = ExtResource("13_fpfj3")
@@ -330,6 +336,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1510315, 0.85193634, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -10.596687, 33.309685, -49.33358)
 star_positions = [NodePath("Star_Positions/Star_0"), NodePath("Star_Positions/Star_1"), NodePath("Star_Positions/Star_2"), NodePath("Star_Positions/Star_3"), NodePath("Star_Positions/Star_4"), NodePath("Star_Positions/Star_5"), NodePath("Star_Positions/Star_6"), NodePath("Star_Positions/Star_7"), NodePath("Star_Positions/Star_8")]
 constellation_graph = ExtResource("19_3b0ty")
+outlaw_starting_position = 7
+player_starting_position = 5
 
 [node name="Sprite_Star" parent="Environment/Constellations/Constellation_Apple" index="1" unique_id=2035096877]
 texture = ExtResource("19_hhcpw")

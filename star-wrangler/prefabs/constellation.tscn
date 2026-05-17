@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://c3r38pnlku31e" path="res://shaders/flatcolor.gdshader" id="3_1j2js"]
 [ext_resource type="Texture2D" uid="uid://cvc8v0f34ildr" path="res://sprites/constellation_duck/constellation_duck_lines.png" id="3_g8yww"]
 [ext_resource type="Texture2D" uid="uid://cj1awi7bnbbb8" path="res://sprites/constellation_duck/constellation_duck_shaded.png" id="4_1j2js"]
+[ext_resource type="Texture2D" uid="uid://dipjy825m6soa" path="res://sprites/icons/rocketship_icon.png" id="7_1j2js"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_crwbb"]
 render_priority = 0
@@ -14,13 +15,14 @@ shader = ExtResource("3_1j2js")
 [sub_resource type="BoxShape3D" id="BoxShape3D_5tuhn"]
 size = Vector3(16.665802, 15.823456, 1)
 
-[node name="Constellation" type="Area3D" unique_id=403411751 node_paths=PackedStringArray("star_sprite", "line_sprite", "shaded_sprite", "star_positions")]
+[node name="Constellation" type="Area3D" unique_id=403411751 node_paths=PackedStringArray("star_sprite", "line_sprite", "shaded_sprite", "star_positions", "player_icon")]
 script = ExtResource("1_hdqhj")
 star_sprite = NodePath("Sprite_Star")
 line_sprite = NodePath("Sprite_Line")
 shaded_sprite = NodePath("Sprite_Shaded")
 star_positions = [NodePath("Star_Positions/Star_0"), NodePath("Star_Positions/Star_1"), NodePath("Star_Positions/Star_2"), NodePath("Star_Positions/Star_3"), NodePath("Star_Positions/Star_4"), NodePath("Star_Positions/Star_5"), NodePath("Star_Positions/Star_6"), NodePath("Star_Positions/Star_7")]
 constellation_graph = ExtResource("2_g8yww")
+player_icon = NodePath("Player_Icon")
 debug_draw_material = SubResource("ShaderMaterial_crwbb")
 debug_draw_color = Color(1, 1, 1, 1)
 
@@ -36,6 +38,11 @@ texture = ExtResource("3_g8yww")
 
 [node name="Sprite_Shaded" type="Sprite3D" parent="." unique_id=2058731896]
 texture = ExtResource("4_1j2js")
+
+[node name="Player_Icon" type="Sprite3D" parent="." unique_id=2106111884]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+visible = false
+texture = ExtResource("7_1j2js")
 
 [node name="Star_Positions" type="Node3D" parent="." unique_id=183090473]
 
