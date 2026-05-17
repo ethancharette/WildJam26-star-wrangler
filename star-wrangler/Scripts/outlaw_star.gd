@@ -51,7 +51,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				var closest_star : int = -1
 				var closest_star_dist_sqr : float = INF
 				
-				for i in range(0, len(current_constellation.star_positions) - 1):
+				for i in range(0, len(current_constellation.star_positions)):
 					var star = current_constellation.star_positions[i]
 					
 					var dist_sqr : float = point_on_line(ray_start, ray_end, star.global_position).distance_squared_to(star.global_position)
