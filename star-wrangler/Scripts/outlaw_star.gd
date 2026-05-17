@@ -133,7 +133,10 @@ func _get_new_target_pos() -> Vector3:
 	if (current_constellation_node == -1):
 		new_target_node = current_constellation.outlaw_starting_position
 	else:
-		new_target_node = current_constellation.constellation_graph.get_random_neighbor(current_constellation_node)
+		while true:
+			new_target_node = current_constellation.constellation_graph.get_random_neighbor(current_constellation_node)
+			if new_target_node != current_constellation.player_icon_position or current_constellation.constellation_graph.get_neighbor_count(current_constellation_node) <= 1:
+				break
 	current_constellation_node = new_target_node
 	return current_constellation.to_global(current_constellation.star_positions[new_target_node].position)
 

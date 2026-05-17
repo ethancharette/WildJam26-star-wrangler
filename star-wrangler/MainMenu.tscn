@@ -30,6 +30,9 @@ expand_margin_top = 8.0
 expand_margin_right = 8.0
 expand_margin_bottom = 8.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_i26rj"]
+font_size = 100
+
 [node name="MainMenu" type="Control" unique_id=1497427266]
 layout_mode = 3
 anchors_preset = 15
@@ -65,6 +68,53 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_i26rj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_eiy7p")
 theme_override_styles/focus = SubResource("StyleBoxFlat_h7a2f")
 text = "Quit"
+
+[node name="Control" type="Control" parent="." unique_id=1239835448]
+layout_mode = 1
+anchor_left = 0.035
+anchor_top = 0.062000003
+anchor_right = 0.48800004
+anchor_bottom = 0.47500002
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=99895372]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 4
+
+[node name="Label" type="Label" parent="Control" unique_id=2043651663]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "video game"
+label_settings = SubResource("LabelSettings_i26rj")
+
+[node name="Credits" type="Label" parent="." unique_id=533480586]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -262.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Developed by:
+Me
+You
+Us
+Etc
+"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [connection signal="pressed" from="VBoxContainer/Play Button" to="." method="Start_Game"]
 [connection signal="pressed" from="VBoxContainer/Quit Button" to="." method="Quit_Game"]
