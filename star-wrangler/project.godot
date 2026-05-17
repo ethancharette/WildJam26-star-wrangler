@@ -13,6 +13,7 @@ config_version=5
 config/name="Star Wrangler"
 run/main_scene="uid://ddctwqo4jjn34"
 config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="uid://tgmn30i6irbi"
 
 [physics]
 

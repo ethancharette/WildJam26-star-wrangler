@@ -31,7 +31,7 @@ expand_margin_right = 8.0
 expand_margin_bottom = 8.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_i26rj"]
-font_size = 100
+font_size = 72
 
 [node name="MainMenu" type="Control" unique_id=1497427266]
 layout_mode = 3
@@ -93,7 +93,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "video game"
+text = "Star Wrangler"
 label_settings = SubResource("LabelSettings_i26rj")
 
 [node name="Credits" type="Label" parent="." unique_id=533480586]
