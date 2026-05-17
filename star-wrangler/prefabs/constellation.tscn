@@ -30,6 +30,12 @@ debug_draw_color = Color(1, 1, 1, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.062332153, -1.3410492, 0)
 shape = SubResource("BoxShape3D_5tuhn")
 
+[node name="Player_Icon" type="Sprite3D" parent="." unique_id=2106111884]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+visible = false
+render_priority = 1
+texture = ExtResource("7_1j2js")
+
 [node name="Sprite_Star" type="Sprite3D" parent="." unique_id=2035096877]
 texture = ExtResource("2_4hnbm")
 
@@ -38,11 +44,6 @@ texture = ExtResource("3_g8yww")
 
 [node name="Sprite_Shaded" type="Sprite3D" parent="." unique_id=2058731896]
 texture = ExtResource("4_1j2js")
-
-[node name="Player_Icon" type="Sprite3D" parent="." unique_id=2106111884]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
-visible = false
-texture = ExtResource("7_1j2js")
 
 [node name="Star_Positions" type="Node3D" parent="." unique_id=183090473]
 
